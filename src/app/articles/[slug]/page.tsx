@@ -71,7 +71,7 @@ export default async function ArticleDetailPage({ params }: Props) {
           <div className="bg-forestBg border border-forest/20 rounded-2xl p-6 mb-8">
             <h2 className="font-mono text-xs text-forest uppercase tracking-widest mb-4">Key Takeaways</h2>
             <ul className="space-y-2">
-              {article.keyTakeaways.map((t, i) => (
+              {article.keyTakeaways.map((t: string, i: number) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-ink">
                   <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
                   {t}
