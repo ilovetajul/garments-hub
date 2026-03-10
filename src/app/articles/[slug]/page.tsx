@@ -104,7 +104,7 @@ export default async function ArticleDetailPage({ params }: Props) {
           <div className="bg-white border border-rule rounded-2xl p-6 mb-8 shadow-card">
             <h2 className="font-serif font-bold text-xl text-ink mb-4">Inspection Checklist</h2>
             <ul className="space-y-2">
-              {article.checklist.map((item) => (
+              {article.checklist.map((item: string) => (
                 <li key={item.id} className="flex items-start gap-3 text-sm">
                   <span className={`w-4 h-4 rounded border-2 flex-shrink-0 mt-0.5 ${item.isCritical ? "border-red-500" : "border-rule"}`} />
                   <span className={item.isCritical ? "text-ink font-semibold" : "text-slate"}>
