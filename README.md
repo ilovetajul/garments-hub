@@ -156,3 +156,4 @@ All design tokens are in `tailwind.config.ts` and `src/app/globals.css`.
 ---
 
 Built with ❤️ for the global garment industry.
+# Garments Hub
