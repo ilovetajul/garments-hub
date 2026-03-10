@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const articles = await db.article.findMany({ where: { status: "PUBLISHED" }, select: { slug: true } });
-  return articles.map((a) => ({ slug: a.slug }));
+  return articles.map((a: { slug: string }) => ({ slug: a.slug }));
 }
 
 export const revalidate = 3600;
