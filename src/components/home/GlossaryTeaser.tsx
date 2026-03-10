@@ -1,0 +1,1 @@
+export { GlossaryTeaser } from "./index";

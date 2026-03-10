@@ -1,0 +1,176 @@
+// Garments Brain — Prisma Schema v1.0
+// Database: PostgreSQL (Supabase)
+// Run: npx prisma db push && npx prisma generate
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ── ENUMS ──────────────────────────────────────
+enum UserRole       { ADMIN EDITOR CONTRIBUTOR REVIEWER }
+enum ContentStatus  { DRAFT REVIEW PUBLISHED ARCHIVED }
+enum Category       { POM QC FABRIC SEWING EMBROIDERY DEFECTS STANDARDS }
+enum TargetRole     { QC_INSPECTOR SUPERVISOR DESIGNER STUDENT ALL }
+enum Difficulty     { BEGINNER INTERMEDIATE ADVANCED }
+enum TermType       { POM QC FABRIC SEWING STANDARD TOOL }
+enum ImageType      { HERO DIAGRAM STEP_PHOTO BEFORE_AFTER THUMBNAIL }
+enum CommentStatus  { PENDING APPROVED REJECTED }
+
+// ── USER ───────────────────────────────────────
+model User {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  name        String
+  role        UserRole  @default(CONTRIBUTOR)
+  avatarUrl   String?
+  bio         String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  articles    Article[]
+  revisions   Revision[]
+  comments    Comment[]
+}
+
+// ── ARTICLE ────────────────────────────────────
+model Article {
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  summary        String        @db.VarChar(300)
+  body           String        @db.Text
+  status         ContentStatus @default(DRAFT)
+  category       Category
+  targetRole     TargetRole[]
+  difficulty     Difficulty    @default(BEGINNER)
+  readTimeMin    Int           @default(3)
+  keyTakeaways   String[]
+  publishedAt    DateTime?
+  lastReviewedAt DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  authorId       String
+  author         User          @relation(fields: [authorId], references: [id])
+  images         Image[]
+  tags           Tag[]
+  seoMeta        SeoMeta?
+  checklist      ChecklistItem[]
+  revisions      Revision[]
+  comments       Comment[]
+
+  @@index([slug])
+  @@index([category, status])
+  @@index([publishedAt])
+}
+
+// ── GLOSSARY TERM ─────────────────────────────
+model GlossaryTerm {
+  id             String        @id @default(cuid())
+  termEn         String        @unique
+  termBn         String
+  slug           String        @unique
+  pronunciation  String?
+  termType       TermType
+  shortDefEn     String        @db.VarChar(300)
+  shortDefBn     String        @db.VarChar(400)
+  detailedBody   String?       @db.Text
+  targetRole     TargetRole[]
+  standardRef    String?
+  tolerance      Json?
+  status         ContentStatus @default(DRAFT)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  images         Image[]
+  seoMeta        SeoMeta?
+
+  @@index([slug])
+  @@index([termType])
+}
+
+// ── TAG ───────────────────────────────────────
+model Tag {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  articles Article[]
+}
+
+// ── SEO META ──────────────────────────────────
+model SeoMeta {
+  id           String        @id @default(cuid())
+  titleTag     String        @db.VarChar(70)
+  metaDesc     String        @db.VarChar(160)
+  canonicalUrl String
+  ogImageUrl   String?
+  keywords     String[]
+  noIndex      Boolean       @default(false)
+  articleId    String?       @unique
+  glossaryId   String?       @unique
+  article      Article?      @relation(fields: [articleId], references: [id])
+  glossaryTerm GlossaryTerm? @relation(fields: [glossaryId], references: [id])
+}
+
+// ── IMAGE ─────────────────────────────────────
+model Image {
+  id           String       @id @default(cuid())
+  url          String
+  altText      String
+  caption      String?
+  imageType    ImageType
+  width        Int
+  height       Int
+  order        Int          @default(0)
+  articleId    String?
+  glossaryId   String?
+  article      Article?     @relation(fields: [articleId], references: [id])
+  glossaryTerm GlossaryTerm? @relation(fields: [glossaryId], references: [id])
+}
+
+// ── CHECKLIST ITEM ────────────────────────────
+model ChecklistItem {
+  id         String   @id @default(cuid())
+  text       String
+  isCritical Boolean  @default(false)
+  order      Int
+  articleId  String?
+  article    Article? @relation(fields: [articleId], references: [id])
+}
+
+// ── REVISION ──────────────────────────────────
+model Revision {
+  id         String   @id @default(cuid())
+  entityType String
+  entityId   String
+  snapshot   Json
+  diff       Json?
+  message    String?
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+}
+
+// ── COMMENT ───────────────────────────────────
+model Comment {
+  id        String        @id @default(cuid())
+  body      String        @db.VarChar(1000)
+  status    CommentStatus @default(PENDING)
+  parentId  String?
+  parent    Comment?      @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[]     @relation("CommentReplies")
+  authorId  String
+  author    User          @relation(fields: [authorId], references: [id])
+  articleId String?
+  article   Article?      @relation(fields: [articleId], references: [id])
+  createdAt DateTime      @default(now())
+}

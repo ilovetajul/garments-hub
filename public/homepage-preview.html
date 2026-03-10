@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garments Brain — QC, POM & Fabric Knowledge Hub</title>
+  <meta name="description" content="The definitive knowledge hub for garment industry professionals. POM charts, QC guides, defect libraries, fabric specs, and free calculation tools." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest:  '#0D6E57',
+            forestD: '#0A4A38',
+            forestL: '#148F70',
+            forestBg:'#EBF5F1',
+            amber:   '#B87800',
+            amberL:  '#D49200',
+            amberBg: '#FDF6E6',
+            ink:     '#161410',
+            slate:   '#3D4F5C',
+            slateL:  '#56707F',
+            paper:   '#FFFFFF',
+            bg:      '#F8F6F1',
+            mist:    '#F0EDE6',
+            fog:     '#E4DFD6',
+            rule:    '#D4CFC6',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans:  ['"DM Sans"', 'system-ui', 'sans-serif'],
+            mono:  ['"DM Mono"', '"Courier New"', 'monospace'],
+          },
+          boxShadow: {
+            card:  '0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08)',
+            hover: '0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06)',
+            glow:  '0 0 0 3px rgba(13,110,87,0.25)',
+          },
+          animation: {
+            'fade-up':   'fadeUp 0.6s ease both',
+            'fade-in':   'fadeIn 0.5s ease both',
+            'slide-in':  'slideIn 0.4s ease both',
+            'pulse-dot': 'pulseDot 2s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp:   { from:{opacity:0,transform:'translateY(20px)'}, to:{opacity:1,transform:'translateY(0)'} },
+            fadeIn:   { from:{opacity:0}, to:{opacity:1} },
+            slideIn:  { from:{opacity:0,transform:'translateX(-16px)'}, to:{opacity:1,transform:'translateX(0)'} },
+            pulseDot: { '0%,100%':{opacity:1}, '50%':{opacity:0.4} },
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background-color: #F8F6F1;
+      color: #161410;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Staggered animation delays */
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+    .delay-400 { animation-delay: 400ms; }
+    .delay-500 { animation-delay: 500ms; }
+    .delay-600 { animation-delay: 600ms; }
+
+    /* Grid pattern for hero */
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* Paper texture */
+    .paper-texture {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F8F6F1'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23E8E4DC' opacity='0.3'/%3E%3C/svg%3E");
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F0EDE6; }
+    ::-webkit-scrollbar-thumb { background: #B0A898; border-radius: 3px; }
+
+    /* Search bar glow */
+    .search-glow:focus-within {
+      box-shadow: 0 0 0 3px rgba(13,110,87,0.2), 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    /* Card hover lift */
+    .card-lift {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.07);
+    }
+
+    /* Nav link underline animation */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #148F70;
+      transition: width 0.2s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Role chip active */
+    .role-chip.active {
+      background: #0D6E57;
+      color: #fff;
+      border-color: #0D6E57;
+    }
+
+    /* Tool card gradient border */
+    .tool-card {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #0D6E57, #B87800);
+    }
+
+    /* Diagonal section separator */
+    .diagonal-sep {
+      clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 100%);
+    }
+
+    /* Mobile menu */
+    #mobile-menu {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    #mobile-menu.open {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    /* Search suggestions */
+    #search-suggestions {
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    /* Progress bar for courses */
+    .progress-bar {
+      height: 4px;
+      background: #E4DFD6;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0D6E57, #148F70);
+      border-radius: 99px;
+      transition: width 1s ease;
+    }
+
+    /* Stat counter */
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+    }
+
+    /* Article category badge */
+    .badge-pom     { background:#EBF5F1; color:#0D6E57; }
+    .badge-qc      { background:#EBF2FD; color:#1A5CA8; }
+    .badge-fabric  { background:#FDF6E6; color:#B87800; }
+    .badge-sewing  { background:#F0EBFD; color:#5B35A8; }
+    .badge-defects { background:#FDF0F0; color:#B83232; }
+    .badge-embroidery { background:#F0F8FF; color:#0369A1; }
+
+    /* Floating label on category cards */
+    .category-card:hover .cat-icon { transform: scale(1.1) rotate(-3deg); }
+    .cat-icon { transition: transform 0.3s ease; }
+
+    /* Animated underline for article title */
+    .article-title-link {
+      background-image: linear-gradient(#0D6E57, #0D6E57);
+      background-repeat: no-repeat;
+      background-size: 0% 2px;
+      background-position: 0 100%;
+      transition: background-size 0.3s ease;
+    }
+    .article-title-link:hover { background-size: 100% 2px; }
+
+    @media (max-width: 640px) {
+      .hero-title { font-size: 2.25rem !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-bg">
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════ -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="bg-forestD/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="w-8 h-8 bg-forest rounded-lg flex items-center justify-center shadow-lg group-hover:bg-forestL transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-serif font-bold text-white text-sm leading-none">Garments Brain</div>
+            <div class="font-mono text-[9px] text-forest/80 tracking-widest uppercase leading-none mt-0.5">Knowledge Hub</div>
+          </div>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#glossary" class="nav-link text-white/80 hover:text-white text-sm font-medium transition-colors">Glossary</a>
+          <a href="#articles" class="nav-link text-white/80 hover:text-white text-sm font-medium transition-colors">Articles</a>
+          <a href="#tools" class="nav-link text-white/80 hover:text-white text-sm font-medium transition-colors">Tools</a>
+          <a href="#courses" class="nav-link text-white/80 hover:text-white text-sm font-medium transition-colors">Courses</a>
+          <a href="#defects" class="nav-link text-white/80 hover:text-white text-sm font-medium transition-colors">Defect Library</a>
+        </nav>
+
+        <!-- Right side -->
+        <div class="flex items-center gap-3">
+          <button onclick="toggleSearch()" class="hidden sm:flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm" aria-label="Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <a href="/sign-in" class="hidden sm:block bg-forest hover:bg-forestL text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+            Sign In
+          </a>
+          <!-- Hamburger -->
+          <button id="hamburger" onclick="toggleMenu()" class="md:hidden text-white/80 hover:text-white p-1" aria-label="Toggle menu">
+            <svg id="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <div class="px-4 py-4 space-y-1">
+        <a href="#glossary" onclick="toggleMenu()" class="block text-white/80 hover:text-white hover:bg-white/10 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">📖 Glossary</a>
+        <a href="#articles" onclick="toggleMenu()" class="block text-white/80 hover:text-white hover:bg-white/10 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">📄 Articles</a>
+        <a href="#tools" onclick="toggleMenu()" class="block text-white/80 hover:text-white hover:bg-white/10 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">🔧 Tools</a>
+        <a href="#courses" onclick="toggleMenu()" class="block text-white/80 hover:text-white hover:bg-white/10 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">🎓 Courses</a>
+        <div class="pt-3 border-t border-white/10">
+          <a href="/sign-in" class="block w-full bg-forest hover:bg-forestL text-white text-sm font-semibold px-4 py-2.5 rounded-lg text-center transition-colors">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════ -->
+<section class="relative min-h-screen bg-forestD hero-grid flex items-center overflow-hidden pt-16">
+
+  <!-- Background decorative elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Large circle -->
+    <div class="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-forest/15 blur-3xl"></div>
+    <div class="absolute -bottom-48 -left-24 w-[500px] h-[500px] rounded-full bg-amber/10 blur-3xl"></div>
+    <!-- Decorative thread lines -->
+    <svg class="absolute inset-0 w-full h-full opacity-10" preserveAspectRatio="none">
+      <line x1="0" y1="30%" x2="100%" y2="25%" stroke="white" stroke-width="0.5" stroke-dasharray="8,16"/>
+      <line x1="0" y1="70%" x2="100%" y2="75%" stroke="white" stroke-width="0.5" stroke-dasharray="8,16"/>
+      <line x1="20%" y1="0" x2="25%" y2="100%" stroke="white" stroke-width="0.5" stroke-dasharray="8,16"/>
+      <line x1="75%" y1="0" x2="70%" y2="100%" stroke="white" stroke-width="0.5" stroke-dasharray="8,16"/>
+    </svg>
+    <!-- Floating measurement marks -->
+    <div class="absolute top-24 left-8 font-mono text-white/20 text-xs hidden lg:block" style="writing-mode:vertical-rl">48cm · 52cm · 56cm · 60cm · 64cm</div>
+    <div class="absolute top-24 right-8 font-mono text-white/20 text-xs hidden lg:block" style="writing-mode:vertical-rl">XS · S · M · L · XL · 2XL · 3XL</div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-32">
+    <div class="max-w-4xl mx-auto text-center">
+
+      <!-- Eyebrow label -->
+      <div class="animate-fade-in inline-flex items-center gap-2 bg-forest/40 border border-forest/50 rounded-full px-4 py-1.5 mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse-dot"></span>
+        <span class="font-mono text-xs text-green-300 tracking-wider uppercase">500+ Industry Terms · 50+ QC Guides</span>
+      </div>
+
+      <!-- Main headline -->
+      <h1 class="hero-title animate-fade-up font-serif font-black text-white leading-tight mb-6" style="font-size:clamp(2.5rem,5vw,4.5rem)">
+        The Knowledge Hub<br/>
+        <span class="italic text-transparent" style="background:linear-gradient(135deg,#4ADE80,#148F70);-webkit-background-clip:text;background-clip:text">Built for Garment</span><br/>
+        <span class="text-white">Professionals</span>
+      </h1>
+
+      <!-- Subheading -->
+      <p class="animate-fade-up delay-200 text-white/65 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
+        POM charts, QC inspection guides, defect libraries, fabric specifications, and free calculation tools — all in one place, built for the factory floor.
+      </p>
+
+      <!-- Role switcher -->
+      <div class="animate-fade-up delay-300 flex flex-wrap items-center justify-center gap-2 mb-8">
+        <span class="text-white/50 text-sm">I'm a:</span>
+        <button class="role-chip active font-semibold text-sm px-4 py-2 rounded-full border transition-all duration-200" style="border-color:rgba(255,255,255,0.2);color:#fff" data-role="all" onclick="setRole(this)">All</button>
+        <button class="role-chip font-semibold text-sm px-4 py-2 rounded-full border transition-all duration-200" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6)" data-role="qc" onclick="setRole(this)">QC Inspector</button>
+        <button class="role-chip font-semibold text-sm px-4 py-2 rounded-full border transition-all duration-200" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6)" data-role="supervisor" onclick="setRole(this)">Supervisor</button>
+        <button class="role-chip font-semibold text-sm px-4 py-2 rounded-full border transition-all duration-200" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6)" data-role="designer" onclick="setRole(this)">Designer</button>
+      </div>
+
+      <!-- Search bar -->
+      <div class="animate-fade-up delay-400 relative max-w-2xl mx-auto">
+        <div class="search-glow relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl transition-all duration-300">
+          <div class="flex items-center px-4 py-1">
+            <svg class="w-5 h-5 text-white/50 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input
+              id="hero-search"
+              type="text"
+              placeholder="Search POM charts, defects, fabric terms…"
+              class="flex-1 bg-transparent text-white placeholder-white/40 px-3 py-4 text-base focus:outline-none"
+              oninput="handleHeroSearch(this.value)"
+              onfocus="showSuggestions()"
+              onblur="setTimeout(hideSuggestions, 150)"
+            />
+            <button class="bg-forest hover:bg-forestL text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors flex-shrink-0">
+              Search
+            </button>
+          </div>
+
+          <!-- Search suggestions dropdown -->
+          <div id="search-suggestions" class="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl shadow-hover overflow-hidden z-50 opacity-0 translate-y-1 pointer-events-none">
+            <div class="px-4 py-2 border-b border-rule">
+              <span class="font-mono text-xs text-slateL tracking-wider uppercase">Quick links</span>
+            </div>
+            <div id="suggestions-list">
+              <!-- Populated by JS -->
+            </div>
+            <div class="px-4 py-3 bg-mist border-t border-rule flex items-center justify-between">
+              <span class="text-xs text-slateL">Press Enter to search all content</span>
+              <kbd class="font-mono text-xs bg-white border border-rule px-2 py-0.5 rounded shadow-sm">↵</kbd>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular tags -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+          <span class="text-white/40 text-xs">Popular:</span>
+          <button onclick="setSearch('Chest Width')" class="text-xs text-white/60 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full transition-all">Chest Width</button>
+          <button onclick="setSearch('AQL 2.5')" class="text-xs text-white/60 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full transition-all">AQL 2.5</button>
+          <button onclick="setSearch('GSM')" class="text-xs text-white/60 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full transition-all">GSM</button>
+          <button onclick="setSearch('Defects')" class="text-xs text-white/60 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full transition-all">Defects</button>
+          <button onclick="setSearch('Embroidery QC')" class="text-xs text-white/60 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full transition-all">Embroidery QC</button>
+        </div>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="animate-fade-up delay-500 grid grid-cols-2 sm:grid-cols-4 gap-px mt-16 bg-white/10 rounded-2xl overflow-hidden">
+        <div class="bg-white/5 backdrop-blur-sm px-6 py-5 text-center">
+          <div class="stat-number text-3xl text-white">500+</div>
+          <div class="text-white/50 text-xs mt-1 uppercase tracking-wide font-mono">Glossary Terms</div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm px-6 py-5 text-center">
+          <div class="stat-number text-3xl text-white">50+</div>
+          <div class="text-white/50 text-xs mt-1 uppercase tracking-wide font-mono">QC Guides</div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm px-6 py-5 text-center">
+          <div class="stat-number text-3xl text-amber">3</div>
+          <div class="text-white/50 text-xs mt-1 uppercase tracking-wide font-mono">Free Tools</div>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm px-6 py-5 text-center">
+          <div class="stat-number text-3xl text-white">EN+বাং</div>
+          <div class="text-white/50 text-xs mt-1 uppercase tracking-wide font-mono">Bilingual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave separator -->
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" class="w-full h-12 sm:h-16 fill-bg">
+      <path d="M0,32 C240,60 480,4 720,32 C960,60 1200,8 1440,32 L1440,60 L0,60 Z"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     CATEGORY CARDS
+═══════════════════════════════════════════ -->
+<section class="py-20 bg-bg" id="categories">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+    <!-- Section header -->
+    <div class="text-center mb-14">
+      <div class="inline-block font-mono text-xs text-forest tracking-widest uppercase bg-forestBg border border-forest/20 px-3 py-1 rounded-full mb-4">Browse by Topic</div>
+      <h2 class="font-serif font-black text-3xl sm:text-4xl text-ink mb-3">Everything a Garment Professional Needs</h2>
+      <p class="text-slateL text-base max-w-xl mx-auto">From raw fabric specs to final QC sign-off — find the reference you need, when you need it.</p>
+    </div>
+
+    <!-- Category grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+
+      <!-- POM -->
+      <a href="/pom" class="category-card card-lift bg-white border border-rule rounded-2xl p-5 text-center group hover:border-forest/30 cursor-pointer">
+        <div class="cat-icon w-12 h-12 bg-forestBg rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D6E57" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <div class="font-bold text-ink text-sm mb-1 group-hover:text-forest transition-colors">POM Charts</div>
+        <div class="text-slateL text-xs">Measurement specs</div>
+        <div class="mt-3 font-mono text-[10px] text-forest/60 tracking-wide">24 guides →</div>
+      </a>
+
+      <!-- QC -->
+      <a href="/articles?category=qc" class="category-card card-lift bg-white border border-rule rounded-2xl p-5 text-center group hover:border-blue-300/50 cursor-pointer">
+        <div class="cat-icon w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A5CA8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <div class="font-bold text-ink text-sm mb-1 group-hover:text-blue-700 transition-colors">QC Guides</div>
+        <div class="text-slateL text-xs">Inspection methods</div>
+        <div class="mt-3 font-mono text-[10px] text-blue-600/60 tracking-wide">31 guides →</div>
+      </a>
+
+      <!-- Defects -->
+      <a href="/defects" id="defects" class="category-card card-lift bg-white border border-rule rounded-2xl p-5 text-center group hover:border-red-300/50 cursor-pointer">
+        <div class="cat-icon w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B83232" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="font-bold text-ink text-sm mb-1 group-hover:text-red-700 transition-colors">Defect Library</div>
+        <div class="text-slateL text-xs">Visual QC reference</div>
+        <div class="mt-3 font-mono text-[10px] text-red-600/60 tracking-wide">100+ defects →</div>
+      </a>
+
+      <!-- Fabric -->
+      <a href="/fabric" class="category-card card-lift bg-white border border-rule rounded-2xl p-5 text-center group hover:border-amber/30 cursor-pointer">
+        <div class="cat-icon w-12 h-12 bg-amberBg rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B87800" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="font-bold text-ink text-sm mb-1 group-hover:text-amber transition-colors">Fabric Guide</div>
+        <div class="text-slateL text-xs">GSM, types, specs</div>
+        <div class="mt-3 font-mono text-[10px] text-amber/60 tracking-wide">45 entries →</div>
+      </a>
+
+      <!-- Embroidery -->
+      <a href="/embroidery" class="category-card card-lift bg-white border border-rule rounded-2xl p-5 text-center group hover:border-sky-300/50 cursor-pointer">
+        <div class="cat-icon w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"/><path d="M12 8v4l3 3"/><path d="M18 14v4h4"/>
+          </svg>
+        </div>
+        <div class="font-bold text-ink text-sm mb-1 group-hover:text-sky-700 transition-colors">Embroidery</div>
+        <div class="text-slateL text-xs">Stitch QC standards</div>
+        <div class="mt-3 font-mono text-[10px] text-sky-600/60 tracking-wide">18 guides →</div>
+      </a>
+
+      <!-- Glossary -->
+      <a href="/glossary" id="glossary" class="category-card card-lift bg-white border border-rule rounded-2xl p-5 text-center group hover:border-purple-300/50 cursor-pointer">
+        <div class="cat-icon w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B35A8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="font-bold text-ink text-sm mb-1 group-hover:text-purple-700 transition-colors">Glossary</div>
+        <div class="text-slateL text-xs">500+ EN+বাং terms</div>
+        <div class="mt-3 font-mono text-[10px] text-purple-600/60 tracking-wide">Browse A–Z →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FEATURED ARTICLES
+═══════════════════════════════════════════ -->
+<section class="py-20 bg-white" id="articles">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+    <!-- Section header -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+      <div>
+        <div class="font-mono text-xs text-forest tracking-widest uppercase bg-forestBg border border-forest/20 px-3 py-1 rounded-full inline-block mb-4">Popular Articles</div>
+        <h2 class="font-serif font-black text-3xl sm:text-4xl text-ink">What Professionals Are Reading</h2>
+      </div>
+      <!-- Filter chips -->
+      <div class="flex flex-wrap gap-2">
+        <button class="article-filter active font-semibold text-xs px-3.5 py-1.5 rounded-full border border-forest bg-forest text-white transition-all" data-filter="all" onclick="filterArticles(this)">All</button>
+        <button class="article-filter font-semibold text-xs px-3.5 py-1.5 rounded-full border border-rule text-slateL hover:border-forest hover:text-forest transition-all" data-filter="pom" onclick="filterArticles(this)">POM</button>
+        <button class="article-filter font-semibold text-xs px-3.5 py-1.5 rounded-full border border-rule text-slateL hover:border-forest hover:text-forest transition-all" data-filter="qc" onclick="filterArticles(this)">QC</button>
+        <button class="article-filter font-semibold text-xs px-3.5 py-1.5 rounded-full border border-rule text-slateL hover:border-forest hover:text-forest transition-all" data-filter="fabric" onclick="filterArticles(this)">Fabric</button>
+        <button class="article-filter font-semibold text-xs px-3.5 py-1.5 rounded-full border border-rule text-slateL hover:border-forest hover:text-forest transition-all" data-filter="embroidery" onclick="filterArticles(this)">Embroidery</button>
+      </div>
+    </div>
+
+    <!-- Articles grid — editorial layout -->
+    <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Feature article (spans 2 cols) -->
+      <article class="article-card md:col-span-2 bg-bg border border-rule rounded-2xl overflow-hidden card-lift group cursor-pointer" data-category="pom">
+        <div class="flex flex-col sm:flex-row h-full">
+          <!-- Visual -->
+          <div class="relative sm:w-64 bg-forestD flex-shrink-0 overflow-hidden min-h-48 sm:min-h-0">
+            <div class="absolute inset-0 hero-grid opacity-30"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <!-- POM illustration -->
+              <svg viewBox="0 0 200 140" class="w-full max-w-[200px]">
+                <rect x="30" y="20" width="140" height="100" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                <line x1="30" y1="70" x2="170" y2="70" stroke="#4ADE80" stroke-width="2" stroke-dasharray="4,3"/>
+                <circle cx="30" cy="70" r="4" fill="#4ADE80"/>
+                <circle cx="170" cy="70" r="4" fill="#4ADE80"/>
+                <text x="100" y="63" fill="white" font-size="9" text-anchor="middle" font-family="monospace">CHEST WIDTH</text>
+                <text x="95" y="82" fill="#4ADE80" font-size="8" text-anchor="middle" font-family="monospace">± 1.0 cm</text>
+                <line x1="100" y1="20" x2="100" y2="50" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="104" y="38" fill="rgba(255,255,255,0.5)" font-size="7" font-family="monospace">1 inch</text>
+              </svg>
+            </div>
+          </div>
+          <!-- Content -->
+          <div class="flex flex-col p-6 flex-1">
+            <div class="flex items-center gap-2 mb-3 flex-wrap">
+              <span class="badge-pom text-[10px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-full">POM</span>
+              <span class="bg-blue-100 text-blue-800 text-[10px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-full">QC Inspector</span>
+              <span class="ml-auto text-xs text-slateL flex items-center gap-1">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                3 min
+              </span>
+            </div>
+            <h3 class="font-serif font-bold text-xl text-ink mb-2 group-hover:text-forest transition-colors leading-snug">
+              <a href="/articles/how-to-measure-chest-width-pom" class="article-title-link">How to Measure Chest Width (POM) — Complete QC Guide</a>
+            </h3>
+            <p class="text-slateL text-sm leading-relaxed mb-4 flex-1">The step-by-step measurement protocol used by QC inspectors worldwide. Covers the 1-inch reference point, tolerance limits by fabric type, and the 5 most common measuring errors.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-forestBg flex items-center justify-center text-xs font-bold text-forest">RH</div>
+                <span class="text-xs text-slateL">Rahman Hossain</span>
+              </div>
+              <time class="text-xs text-slateL">Mar 2025</time>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article card 2 -->
+      <article class="article-card bg-bg border border-rule rounded-2xl overflow-hidden card-lift group cursor-pointer" data-category="qc">
+        <div class="relative h-36 bg-gradient-to-br from-blue-900 to-blue-700 overflow-hidden">
+          <div class="absolute inset-0 hero-grid opacity-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+              <div class="font-serif font-black text-white text-3xl">AQL</div>
+              <div class="font-mono text-blue-300 text-sm mt-1">2.5 vs 4.0</div>
+            </div>
+          </div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-blue-500/40 text-white text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm">QC</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="bg-blue-100 text-blue-800 text-[10px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-full">Supervisor</span>
+            <span class="ml-auto text-xs text-slateL">5 min</span>
+          </div>
+          <h3 class="font-serif font-bold text-base text-ink mb-2 group-hover:text-blue-700 transition-colors leading-snug">
+            <a href="/articles/aql-2-5-vs-4-0" class="article-title-link">AQL 2.5 vs 4.0 — When to Use Which Standard</a>
+          </h3>
+          <p class="text-slateL text-xs leading-relaxed">When does AQL 4.0 become too lenient? A practical breakdown of sampling plans by product type and buyer requirement.</p>
+        </div>
+      </article>
+
+      <!-- Article card 3 -->
+      <article class="article-card bg-bg border border-rule rounded-2xl overflow-hidden card-lift group cursor-pointer" data-category="fabric">
+        <div class="relative h-36 bg-gradient-to-br from-amber-900 to-amber-700 overflow-hidden">
+          <div class="absolute inset-0 hero-grid opacity-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+              <div class="font-mono text-amber-300 text-xs uppercase tracking-widest">Grams Per</div>
+              <div class="font-serif font-black text-white text-3xl">GSM</div>
+              <div class="font-mono text-amber-300 text-xs">Square Metre</div>
+            </div>
+          </div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-amber-500/40 text-white text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm">Fabric</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge-fabric text-[10px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-full">All Roles</span>
+            <span class="ml-auto text-xs text-slateL">4 min</span>
+          </div>
+          <h3 class="font-serif font-bold text-base text-ink mb-2 group-hover:text-amber transition-colors leading-snug">
+            <a href="/articles/gsm-measurement-guide" class="article-title-link">GSM Measurement Guide — From Sample to Batch Assessment</a>
+          </h3>
+          <p class="text-slateL text-xs leading-relaxed">Everything about fabric weight — how to measure it accurately, what the numbers mean, and how to catch GSM deviations before they cause rejects.</p>
+        </div>
+      </article>
+
+      <!-- Article card 4 -->
+      <article class="article-card bg-bg border border-rule rounded-2xl overflow-hidden card-lift group cursor-pointer" data-category="embroidery">
+        <div class="relative h-36 bg-gradient-to-br from-sky-900 to-sky-700 overflow-hidden">
+          <div class="absolute inset-0 hero-grid opacity-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center p-4">
+            <svg viewBox="0 0 120 60" class="w-full max-w-[150px]">
+              <!-- Simplified embroidery stitch pattern -->
+              <path d="M10,30 Q30,10 50,30 Q70,50 90,30 Q110,10 120,30" stroke="#7DD3FC" stroke-width="2" fill="none"/>
+              <path d="M10,35 Q30,15 50,35 Q70,55 90,35 Q110,15 120,35" stroke="#38BDF8" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <circle cx="50" cy="30" r="3" fill="#F0F9FF"/>
+              <circle cx="90" cy="30" r="3" fill="#F0F9FF"/>
+            </svg>
+          </div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-sky-500/40 text-white text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm">Embroidery</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge-embroidery text-[10px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-full">QC Inspector</span>
+            <span class="ml-auto text-xs text-slateL">6 min</span>
+          </div>
+          <h3 class="font-serif font-bold text-base text-ink mb-2 group-hover:text-sky-700 transition-colors leading-snug">
+            <a href="/articles/stitch-density-vs-count" class="article-title-link">Stitch Count vs Density — Why the Difference Matters for QC</a>
+          </h3>
+          <p class="text-slateL text-xs leading-relaxed">Two numbers, completely different implications. Learn why density (stitches/cm²) is the metric that actually predicts embroidery quality.</p>
+        </div>
+      </article>
+
+      <!-- Article card 5 -->
+      <article class="article-card bg-bg border border-rule rounded-2xl overflow-hidden card-lift group cursor-pointer" data-category="qc">
+        <div class="relative h-36 bg-gradient-to-br from-red-900 to-red-800 overflow-hidden">
+          <div class="absolute inset-0 hero-grid opacity-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="grid grid-cols-3 gap-2 p-4">
+              <div class="bg-red-600/60 rounded text-center p-1"><div class="font-mono text-red-200 text-[8px]">CRITICAL</div></div>
+              <div class="bg-orange-600/60 rounded text-center p-1"><div class="font-mono text-orange-200 text-[8px]">MAJOR</div></div>
+              <div class="bg-yellow-600/60 rounded text-center p-1"><div class="font-mono text-yellow-200 text-[8px]">MINOR</div></div>
+            </div>
+          </div>
+          <div class="absolute top-3 left-3">
+            <span class="bg-red-500/40 text-white text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm">Defects</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge-defects text-[10px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-full">QC Inspector</span>
+            <span class="ml-auto text-xs text-slateL">8 min</span>
+          </div>
+          <h3 class="font-serif font-bold text-base text-ink mb-2 group-hover:text-red-700 transition-colors leading-snug">
+            <a href="/articles/top-20-sewing-defects" class="article-title-link">Top 20 Sewing Defects — Visual Reference with AQL Classification</a>
+          </h3>
+          <p class="text-slateL text-xs leading-relaxed">Photo reference for the 20 most common sewing defects found during final inspection. Includes Critical/Major/Minor classification and root causes.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="/articles" class="inline-flex items-center gap-2 bg-forestBg hover:bg-forest hover:text-white text-forest font-semibold px-6 py-3 rounded-xl border border-forest/20 hover:border-forest transition-all duration-200 group">
+        View All Articles
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     TOOLS SECTION
+═══════════════════════════════════════════ -->
+<section class="py-20 bg-bg" id="tools">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+    <div class="text-center mb-14">
+      <div class="font-mono text-xs text-forest tracking-widest uppercase bg-forestBg border border-forest/20 px-3 py-1 rounded-full inline-block mb-4">Free Tools</div>
+      <h2 class="font-serif font-black text-3xl sm:text-4xl text-ink mb-3">Calculate. Generate. Validate.</h2>
+      <p class="text-slateL text-base max-w-xl mx-auto">Production-ready tools built for the factory floor. No sign-in required.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- GSM Calculator -->
+      <div class="tool-card card-lift shadow-card cursor-pointer group" onclick="window.location='/tools/gsm-calculator'">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-12 h-12 bg-forestBg rounded-xl flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D6E57" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] text-green-700 bg-green-100 px-2 py-0.5 rounded-full border border-green-200 tracking-wide">FREE</span>
+          </div>
+          <h3 class="font-serif font-bold text-xl text-ink mb-2 group-hover:text-forest transition-colors">GSM Calculator</h3>
+          <p class="text-slateL text-sm leading-relaxed mb-5">Calculate fabric weight (GSM & oz/yd²) from direct sample measurements. Includes fabric category classification.</p>
+
+          <!-- Mini interactive preview -->
+          <div class="bg-bg rounded-xl p-4 border border-rule mb-5">
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <div>
+                <label class="font-mono text-[10px] text-slateL uppercase tracking-wide block mb-1">Weight (g)</label>
+                <input id="gsm-weight" type="number" placeholder="4.5" class="w-full text-sm border border-rule rounded-lg px-3 py-2 bg-white focus:border-forest focus:outline-none focus:shadow-glow transition-all" oninput="calcGSM()"/>
+              </div>
+              <div>
+                <label class="font-mono text-[10px] text-slateL uppercase tracking-wide block mb-1">Size (cm)</label>
+                <input id="gsm-size" type="number" placeholder="10" class="w-full text-sm border border-rule rounded-lg px-3 py-2 bg-white focus:border-forest focus:outline-none focus:shadow-glow transition-all" oninput="calcGSM()"/>
+              </div>
+            </div>
+            <div id="gsm-result" class="text-center py-2 rounded-lg bg-white border border-rule">
+              <span class="font-serif font-black text-2xl text-forest" id="gsm-value">—</span>
+              <span class="text-slateL text-sm ml-1">GSM</span>
+            </div>
+          </div>
+
+          <a href="/tools/gsm-calculator" class="flex items-center justify-center gap-2 bg-forest hover:bg-forestL text-white font-semibold text-sm py-2.5 rounded-xl transition-colors w-full">
+            Open Full Tool
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Fabric Consumption -->
+      <div class="tool-card card-lift shadow-card cursor-pointer group" onclick="window.location='/tools/fabric-consumption'">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-12 h-12 bg-amberBg rounded-xl flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B87800" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] text-green-700 bg-green-100 px-2 py-0.5 rounded-full border border-green-200 tracking-wide">FREE</span>
+          </div>
+          <h3 class="font-serif font-bold text-xl text-ink mb-2 group-hover:text-amber transition-colors">Fabric Consumption</h3>
+          <p class="text-slateL text-sm leading-relaxed mb-5">Calculate exact fabric needed per piece and total yardage for your order. Supports T-shirts, trousers, jackets, and dresses.</p>
+
+          <!-- Garment type selector mini -->
+          <div class="bg-bg rounded-xl p-4 border border-rule mb-5">
+            <label class="font-mono text-[10px] text-slateL uppercase tracking-wide block mb-2">Garment Type</label>
+            <div class="grid grid-cols-2 gap-2 mb-3">
+              <button class="garment-btn active text-xs font-semibold py-1.5 rounded-lg border border-amber bg-amberBg text-amber" data-type="tshirt" onclick="selectGarment(this)">T-Shirt</button>
+              <button class="garment-btn text-xs font-semibold py-1.5 rounded-lg border border-rule text-slateL hover:border-amber transition-colors" data-type="trouser" onclick="selectGarment(this)">Trouser</button>
+              <button class="garment-btn text-xs font-semibold py-1.5 rounded-lg border border-rule text-slateL hover:border-amber transition-colors" data-type="jacket" onclick="selectGarment(this)">Jacket</button>
+              <button class="garment-btn text-xs font-semibold py-1.5 rounded-lg border border-rule text-slateL hover:border-amber transition-colors" data-type="dress" onclick="selectGarment(this)">Dress</button>
+            </div>
+            <div class="text-center py-2 rounded-lg bg-white border border-rule">
+              <span class="font-serif font-black text-2xl text-amber" id="fabric-result">~1.8</span>
+              <span class="text-slateL text-sm ml-1">m/piece</span>
+            </div>
+          </div>
+
+          <a href="/tools/fabric-consumption" class="flex items-center justify-center gap-2 bg-amber hover:bg-amberL text-white font-semibold text-sm py-2.5 rounded-xl transition-colors w-full">
+            Open Full Tool
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- POM Generator -->
+      <div class="tool-card card-lift shadow-card cursor-pointer group" onclick="window.location='/tools/pom-generator'">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-5">
+            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A5CA8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] text-green-700 bg-green-100 px-2 py-0.5 rounded-full border border-green-200 tracking-wide">FREE + PDF</span>
+          </div>
+          <h3 class="font-serif font-bold text-xl text-ink mb-2 group-hover:text-blue-700 transition-colors">POM Template Generator</h3>
+          <p class="text-slateL text-sm leading-relaxed mb-5">Generate a professional spec sheet with measurement points, tolerances, and size range. Export as print-ready PDF.</p>
+
+          <!-- Sample POM table mini -->
+          <div class="bg-bg rounded-xl p-3 border border-rule mb-5 overflow-hidden">
+            <div class="font-mono text-[9px] text-slateL uppercase tracking-wide mb-2">Sample Output</div>
+            <table class="w-full text-[10px]">
+              <thead><tr class="bg-blue-700 text-white"><th class="px-2 py-1 text-left rounded-l">Point of Measure</th><th class="px-2 py-1">S</th><th class="px-2 py-1">M</th><th class="px-2 py-1 rounded-r">L</th></tr></thead>
+              <tbody class="divide-y divide-rule">
+                <tr class="bg-white"><td class="px-2 py-1 text-ink font-medium">Chest Width</td><td class="px-2 py-1 text-center text-slateL">49</td><td class="px-2 py-1 text-center text-slateL">52</td><td class="px-2 py-1 text-center text-slateL">55</td></tr>
+                <tr class="bg-mist"><td class="px-2 py-1 text-ink font-medium">Body Length</td><td class="px-2 py-1 text-center text-slateL">68</td><td class="px-2 py-1 text-center text-slateL">71</td><td class="px-2 py-1 text-center text-slateL">74</td></tr>
+                <tr class="bg-white"><td class="px-2 py-1 text-ink font-medium">Shoulder</td><td class="px-2 py-1 text-center text-slateL">41</td><td class="px-2 py-1 text-center text-slateL">44</td><td class="px-2 py-1 text-center text-slateL">47</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <a href="/tools/pom-generator" class="flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm py-2.5 rounded-xl transition-colors w-full">
+            Generate POM Sheet
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     COURSES SECTION
+═══════════════════════════════════════════ -->
+<section class="py-20 bg-forestD" id="courses">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+    <div class="flex flex-col lg:flex-row items-start gap-16">
+
+      <!-- Left: Header -->
+      <div class="lg:w-80 flex-shrink-0">
+        <div class="font-mono text-xs text-green-400 tracking-widest uppercase border border-green-400/30 bg-green-400/10 px-3 py-1 rounded-full inline-block mb-6">Learning Paths</div>
+        <h2 class="font-serif font-black text-3xl sm:text-4xl text-white mb-4 leading-tight">Structured Courses for Garment Pros</h2>
+        <p class="text-white/60 text-base leading-relaxed mb-8">Industry-specific micro-courses. Learn at your pace, get certified, and advance your career.</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white/10 rounded-xl p-4 text-center">
+            <div class="font-serif font-black text-2xl text-white">8</div>
+            <div class="font-mono text-xs text-white/50 uppercase tracking-wide mt-1">Lessons</div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 text-center">
+            <div class="font-serif font-black text-2xl text-white">4–5h</div>
+            <div class="font-mono text-xs text-white/50 uppercase tracking-wide mt-1">Duration</div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 text-center">
+            <div class="font-serif font-black text-2xl text-green-400">Free</div>
+            <div class="font-mono text-xs text-white/50 uppercase tracking-wide mt-1">Price</div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 text-center">
+            <div class="font-serif font-black text-2xl text-white">🏅</div>
+            <div class="font-mono text-xs text-white/50 uppercase tracking-wide mt-1">Certificate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Course cards -->
+      <div class="flex-1 space-y-4 w-full">
+
+        <!-- Course 1 — Featured -->
+        <div class="bg-white/10 border border-white/15 hover:bg-white/15 rounded-2xl p-6 transition-all cursor-pointer group card-lift">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 bg-amber/20 border border-amber/30 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">🧵</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="font-mono text-[10px] text-amber tracking-wide uppercase bg-amber/20 border border-amber/30 px-2 py-0.5 rounded-full">New Course</span>
+                <span class="font-mono text-[10px] text-white/50 tracking-wide uppercase">Intermediate · 4–5 hrs</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-white mb-1 group-hover:text-green-400 transition-colors">QC for Embroidery — Complete Inspector Course</h3>
+              <p class="text-white/55 text-sm leading-relaxed mb-4">8 lessons covering stitch types, thread quality, defect classification, AQL sampling, wash durability, and compliance testing.</p>
+
+              <!-- Progress bar -->
+              <div class="flex items-center gap-3">
+                <div class="progress-bar flex-1">
+                  <div class="progress-fill" style="width:0%" id="course1-progress"></div>
+                </div>
+                <span class="font-mono text-xs text-white/40 flex-shrink-0">0 / 8 lessons</span>
+              </div>
+            </div>
+            <a href="/courses/qc-embroidery" class="hidden sm:flex items-center justify-center w-10 h-10 bg-forest/50 hover:bg-forest rounded-xl transition-colors flex-shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Lesson preview -->
+          <div class="mt-5 pt-5 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div class="text-center">
+              <div class="w-8 h-8 bg-forest/40 rounded-lg flex items-center justify-center mx-auto mb-1 text-sm">🧵</div>
+              <div class="font-mono text-[9px] text-white/40 leading-tight">Fundamentals</div>
+            </div>
+            <div class="text-center">
+              <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-1 text-sm">🎨</div>
+              <div class="font-mono text-[9px] text-white/40 leading-tight">Thread Quality</div>
+            </div>
+            <div class="text-center">
+              <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-1 text-sm">🔍</div>
+              <div class="font-mono text-[9px] text-white/40 leading-tight">Defect Class.</div>
+            </div>
+            <div class="text-center">
+              <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-1 text-sm">📊</div>
+              <div class="font-mono text-[9px] text-white/40 leading-tight">AQL & Reports</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course 2 — Coming soon -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">📐</div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="font-mono text-[10px] text-white/40 tracking-wide uppercase bg-white/10 border border-white/15 px-2 py-0.5 rounded-full">Coming Soon</span>
+                <span class="font-mono text-[10px] text-white/40 tracking-wide uppercase">Beginner · 3 hrs</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-white/70 mb-1">POM Measurement Fundamentals</h3>
+              <p class="text-white/40 text-sm leading-relaxed">Master all Point of Measure checkpoints for woven and knit garments.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course 3 — Coming soon -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">🏭</div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="font-mono text-[10px] text-white/40 tracking-wide uppercase bg-white/10 border border-white/15 px-2 py-0.5 rounded-full">Coming Soon</span>
+                <span class="font-mono text-[10px] text-white/40 tracking-wide uppercase">Advanced · 6 hrs</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-white/70 mb-1">Factory Audit & Compliance</h3>
+              <p class="text-white/40 text-sm leading-relaxed">Social compliance audits, certification pathways, and export market requirements.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center pt-2">
+          <a href="/courses" class="inline-flex items-center gap-2 text-green-400 hover:text-green-300 font-semibold text-sm transition-colors group">
+            View All Learning Paths
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     GLOSSARY TEASER
+═══════════════════════════════════════════ -->
+<section class="py-20 bg-bg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+
+      <!-- Left: content -->
+      <div class="lg:w-1/2">
+        <div class="font-mono text-xs text-purple-700 tracking-widest uppercase bg-purple-50 border border-purple-200 px-3 py-1 rounded-full inline-block mb-6">Bilingual Glossary</div>
+        <h2 class="font-serif font-black text-3xl sm:text-4xl text-ink mb-4 leading-tight">500+ Terms in English and বাংলা</h2>
+        <p class="text-slateL text-base leading-relaxed mb-6">Every garment industry term with full definitions, pronunciation guides, measurement tolerances, visual diagrams, and role-based tagging.</p>
+
+        <!-- Sample term cards -->
+        <div class="space-y-3 mb-8">
+          <div class="glossary-term-card bg-white border border-rule rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:border-forest/30 hover:shadow-card transition-all group">
+            <div>
+              <div class="font-bold text-ink text-sm group-hover:text-forest transition-colors">Chest Width <span class="text-slateL font-normal text-xs ml-2">/ বুকের প্রস্থ</span></div>
+              <div class="text-slateL text-xs mt-0.5">Horizontal measurement 1 inch below armhole seam</div>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <span class="badge-pom text-[9px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full">POM</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-slateL group-hover:text-forest transition-colors"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </div>
+          </div>
+          <div class="glossary-term-card bg-white border border-rule rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:border-forest/30 hover:shadow-card transition-all group">
+            <div>
+              <div class="font-bold text-ink text-sm group-hover:text-forest transition-colors">AQL <span class="text-slateL font-normal text-xs ml-2">/ গ্রহণযোগ্য মান</span></div>
+              <div class="text-slateL text-xs mt-0.5">Acceptable Quality Level — batch inspection threshold</div>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <span class="badge-qc text-[9px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full">QC</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-slateL group-hover:text-forest transition-colors"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </div>
+          </div>
+          <div class="glossary-term-card bg-white border border-rule rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:border-forest/30 hover:shadow-card transition-all group">
+            <div>
+              <div class="font-bold text-ink text-sm group-hover:text-forest transition-colors">GSM <span class="text-slateL font-normal text-xs ml-2">/ গ্রাম প্রতি বর্গমিটার</span></div>
+              <div class="text-slateL text-xs mt-0.5">Fabric weight in grams per square metre</div>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <span class="badge-fabric text-[9px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full">Fabric</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-slateL group-hover:text-forest transition-colors"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <a href="/glossary" class="inline-flex items-center gap-2 bg-forestD hover:bg-forestD/90 text-white font-semibold px-6 py-3 rounded-xl transition-colors group">
+          Browse Full Glossary
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Right: A-Z visual -->
+      <div class="lg:w-1/2">
+        <div class="bg-white border border-rule rounded-2xl p-6 shadow-card">
+          <div class="font-mono text-[10px] text-slateL uppercase tracking-widest mb-4">Browse A–Z</div>
+          <div class="grid grid-cols-9 gap-1.5 mb-5" id="az-grid">
+            <!-- Populated by JS -->
+          </div>
+          <div class="border-t border-rule pt-4">
+            <div class="font-mono text-[10px] text-slateL uppercase tracking-wide mb-3">Recent additions</div>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-ink font-medium">Tolerance</span>
+                <span class="font-mono text-xs text-forest">New</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-ink font-medium">Backing (Embroidery)</span>
+                <span class="font-mono text-xs text-forest">New</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-ink font-medium">Seam Allowance</span>
+                <span class="font-mono text-xs text-slateL">Mar 25</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-ink font-medium">HPS (High Point Shoulder)</span>
+                <span class="font-mono text-xs text-slateL">Mar 25</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     NEWSLETTER / CTA STRIP
+═══════════════════════════════════════════ -->
+<section class="py-16 bg-white border-y border-rule">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <div class="font-mono text-xs text-forest tracking-widest uppercase bg-forestBg border border-forest/20 px-3 py-1 rounded-full inline-block mb-5">Weekly Updates</div>
+    <h2 class="font-serif font-black text-2xl sm:text-3xl text-ink mb-3">Stay current with garment industry QC standards</h2>
+    <p class="text-slateL text-base mb-8">New articles, tool updates, and industry news — every Monday. No spam.</p>
+    <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input
+        id="newsletter-email"
+        type="email"
+        placeholder="Your work email"
+        class="flex-1 border border-rule rounded-xl px-4 py-3 text-sm focus:border-forest focus:outline-none focus:shadow-glow transition-all"
+        required
+      />
+      <button type="submit" class="bg-forest hover:bg-forestL text-white font-semibold px-6 py-3 rounded-xl transition-colors whitespace-nowrap text-sm">
+        Get Updates
+      </button>
+    </form>
+    <div id="newsletter-success" class="hidden mt-4 text-forest font-semibold text-sm">✓ You're in — updates every Monday.</div>
+    <p class="text-slateL text-xs mt-3">Join 2,000+ garment professionals. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer class="bg-forestD text-white">
+
+  <!-- Main footer grid -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+
+      <!-- Brand column -->
+      <div class="lg:col-span-2">
+        <a href="/" class="flex items-center gap-3 mb-5">
+          <div class="w-9 h-9 bg-forest rounded-lg flex items-center justify-center shadow-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-serif font-bold text-white text-base leading-none">Garments Brain</div>
+            <div class="font-mono text-[9px] text-white/40 tracking-widest uppercase leading-none mt-1">Knowledge Hub</div>
+          </div>
+        </a>
+        <p class="text-white/55 text-sm leading-relaxed mb-6 max-w-sm">The definitive knowledge hub for garment industry QC inspectors, supervisors, and designers. Built for the factory floor.</p>
+
+        <!-- Social links -->
+        <div class="flex items-center gap-3">
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-forest rounded-lg flex items-center justify-center transition-colors" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-forest rounded-lg flex items-center justify-center transition-colors" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-forest rounded-lg flex items-center justify-center transition-colors" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links columns -->
+      <div>
+        <h4 class="font-mono text-[10px] text-white/40 uppercase tracking-widest mb-4">Content</h4>
+        <ul class="space-y-2.5">
+          <li><a href="/articles" class="text-white/65 hover:text-white text-sm transition-colors">Articles</a></li>
+          <li><a href="/glossary" class="text-white/65 hover:text-white text-sm transition-colors">Glossary</a></li>
+          <li><a href="/defects" class="text-white/65 hover:text-white text-sm transition-colors">Defect Library</a></li>
+          <li><a href="/pom" class="text-white/65 hover:text-white text-sm transition-colors">POM Reference</a></li>
+          <li><a href="/fabric" class="text-white/65 hover:text-white text-sm transition-colors">Fabric Encyclopedia</a></li>
+          <li><a href="/embroidery" class="text-white/65 hover:text-white text-sm transition-colors">Embroidery Guide</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-mono text-[10px] text-white/40 uppercase tracking-widest mb-4">Tools</h4>
+        <ul class="space-y-2.5">
+          <li><a href="/tools/gsm-calculator" class="text-white/65 hover:text-white text-sm transition-colors">GSM Calculator</a></li>
+          <li><a href="/tools/fabric-consumption" class="text-white/65 hover:text-white text-sm transition-colors">Fabric Consumption</a></li>
+          <li><a href="/tools/pom-generator" class="text-white/65 hover:text-white text-sm transition-colors">POM Generator</a></li>
+          <li><a href="/tools/validator" class="text-white/65 hover:text-white text-sm transition-colors flex items-center gap-1.5">Spec Validator <span class="text-[9px] text-amber font-mono border border-amber/40 bg-amber/10 px-1.5 py-0.5 rounded">Soon</span></a></li>
+        </ul>
+        <h4 class="font-mono text-[10px] text-white/40 uppercase tracking-widest mb-4 mt-6">Learning</h4>
+        <ul class="space-y-2.5">
+          <li><a href="/courses" class="text-white/65 hover:text-white text-sm transition-colors">All Courses</a></li>
+          <li><a href="/courses/qc-embroidery" class="text-white/65 hover:text-white text-sm transition-colors">QC for Embroidery</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-mono text-[10px] text-white/40 uppercase tracking-widest mb-4">Company</h4>
+        <ul class="space-y-2.5">
+          <li><a href="/about" class="text-white/65 hover:text-white text-sm transition-colors">About</a></li>
+          <li><a href="/contact" class="text-white/65 hover:text-white text-sm transition-colors">Contact</a></li>
+          <li><a href="/privacy" class="text-white/65 hover:text-white text-sm transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms" class="text-white/65 hover:text-white text-sm transition-colors">Terms</a></li>
+          <li><a href="/sitemap.xml" class="text-white/65 hover:text-white text-sm transition-colors">Sitemap</a></li>
+        </ul>
+
+        <!-- Language toggle -->
+        <div class="mt-8">
+          <h4 class="font-mono text-[10px] text-white/40 uppercase tracking-widest mb-3">Language</h4>
+          <div class="flex gap-2">
+            <button class="lang-btn active font-semibold text-xs px-3 py-1.5 rounded-lg bg-forest text-white border border-forest" onclick="setLang('en', this)">English</button>
+            <button class="lang-btn font-semibold text-xs px-3 py-1.5 rounded-lg bg-white/10 text-white/60 border border-white/20 hover:bg-white/20 transition-colors" onclick="setLang('bn', this)">বাংলা</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-white/40 text-xs">© 2025 Garments Brain. Built for the global garment industry.</p>
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse-dot"></span>
+        <span class="font-mono text-[10px] text-white/40 tracking-wide">All systems operational</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     BACK TO TOP
+═══════════════════════════════════════════ -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+  class="fixed bottom-6 right-6 w-10 h-10 bg-forest hover:bg-forestL text-white rounded-xl shadow-hover flex items-center justify-center transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-40">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+/* ── MOBILE MENU ── */
+let menuOpen = false;
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('open', menuOpen);
+}
+
+/* ── SEARCH ── */
+const suggestions = [
+  { label: 'Chest Width', sub: 'POM measurement guide', href: '/articles/how-to-measure-chest-width', icon: '📐', badge: 'POM' },
+  { label: 'AQL 2.5', sub: 'Acceptable Quality Level explained', href: '/articles/aql-2-5-vs-4-0', icon: '✅', badge: 'QC' },
+  { label: 'GSM Calculator', sub: 'Free fabric weight tool', href: '/tools/gsm-calculator', icon: '🔧', badge: 'Tool' },
+  { label: 'Skipped Stitch', sub: 'Defect classification & causes', href: '/defects/skipped-stitch', icon: '⚠️', badge: 'Defect' },
+  { label: 'Satin Stitch', sub: 'Embroidery stitch type guide', href: '/glossary/satin-stitch', icon: '📖', badge: 'Glossary' },
+  { label: 'Cuttable Width', sub: 'Fabric consumption term', href: '/glossary/cuttable-width', icon: '📖', badge: 'Glossary' },
+];
+
+function renderSuggestions(query) {
+  const list = document.getElementById('suggestions-list');
+  const filtered = query
+    ? suggestions.filter(s => s.label.toLowerCase().includes(query.toLowerCase()) || s.sub.toLowerCase().includes(query.toLowerCase()))
+    : suggestions;
+  list.innerHTML = filtered.slice(0, 5).map(s => `
+    <a href="${s.href}" class="flex items-center gap-3 px-4 py-3 hover:bg-mist transition-colors border-b border-rule last:border-0">
+      <span class="text-lg w-7 flex-shrink-0 text-center">${s.icon}</span>
+      <div class="flex-1 min-w-0">
+        <div class="font-semibold text-ink text-sm">${s.label}</div>
+        <div class="text-slateL text-xs truncate">${s.sub}</div>
+      </div>
+      <span class="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full bg-mist text-slateL">${s.badge}</span>
+    </a>
+  `).join('');
+}
+
+function showSuggestions() {
+  const el = document.getElementById('search-suggestions');
+  renderSuggestions(document.getElementById('hero-search').value);
+  el.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
+  el.classList.add('opacity-100', 'translate-y-0');
+}
+
+function hideSuggestions() {
+  const el = document.getElementById('search-suggestions');
+  el.classList.add('opacity-0', 'translate-y-1', 'pointer-events-none');
+  el.classList.remove('opacity-100', 'translate-y-0');
+}
+
+function handleHeroSearch(val) { renderSuggestions(val); }
+function setSearch(term) {
+  document.getElementById('hero-search').value = term;
+  showSuggestions();
+  renderSuggestions(term);
+}
+function toggleSearch() { document.getElementById('hero-search').focus(); }
+
+/* ── ROLE SWITCHER ── */
+function setRole(btn) {
+  document.querySelectorAll('.role-chip').forEach(c => {
+    c.classList.remove('active');
+    c.style.color = 'rgba(255,255,255,0.6)';
+    c.style.borderColor = 'rgba(255,255,255,0.2)';
+  });
+  btn.classList.add('active');
+  btn.style.color = '#fff';
+  btn.style.borderColor = '#0D6E57';
+}
+
+/* ── ARTICLE FILTER ── */
+function filterArticles(btn) {
+  const filter = btn.dataset.filter;
+  document.querySelectorAll('.article-filter').forEach(b => {
+    b.classList.remove('active', 'bg-forest', 'text-white', 'border-forest');
+    b.classList.add('border-rule', 'text-slateL');
+  });
+  btn.classList.add('active', 'bg-forest', 'text-white', 'border-forest');
+  btn.classList.remove('border-rule', 'text-slateL');
+
+  document.querySelectorAll('.article-card').forEach(card => {
+    const cat = card.dataset.category;
+    const show = filter === 'all' || cat === filter;
+    card.style.opacity = show ? '1' : '0.3';
+    card.style.transform = show ? '' : 'scale(0.98)';
+    card.style.transition = 'opacity 0.25s, transform 0.25s';
+  });
+}
+
+/* ── GSM MINI CALCULATOR ── */
+function calcGSM() {
+  const w = parseFloat(document.getElementById('gsm-weight').value);
+  const s = parseFloat(document.getElementById('gsm-size').value);
+  const el = document.getElementById('gsm-value');
+  if (w > 0 && s > 0) {
+    const area = (s / 100) * (s / 100);
+    const gsm = Math.round(w / area);
+    el.textContent = gsm;
+    el.style.color = gsm < 100 ? '#1A5CA8' : gsm < 200 ? '#0D6E57' : gsm < 300 ? '#B87800' : '#B83232';
+  } else {
+    el.textContent = '—';
+    el.style.color = '#0D6E57';
+  }
+}
+
+/* ── GARMENT TYPE SELECTOR ── */
+const fabricEstimates = { tshirt: '~1.8', trouser: '~2.4', jacket: '~3.2', dress: '~2.8' };
+function selectGarment(btn) {
+  document.querySelectorAll('.garment-btn').forEach(b => {
+    b.classList.remove('active', 'border-amber', 'bg-amberBg', 'text-amber');
+    b.classList.add('border-rule', 'text-slateL');
+  });
+  btn.classList.add('active', 'border-amber', 'bg-amberBg', 'text-amber');
+  btn.classList.remove('border-rule', 'text-slateL');
+  document.getElementById('fabric-result').textContent = fabricEstimates[btn.dataset.type];
+}
+
+/* ── A–Z GRID ── */
+function buildAZGrid() {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const hasTerms = new Set(['A','B','C','D','E','F','G','H','I','K','L','M','N','O','P','Q','R','S','T','W']);
+  const grid = document.getElementById('az-grid');
+  if (!grid) return;
+  grid.innerHTML = letters.map(l => `
+    <button onclick="window.location='/glossary?letter=${l}'"
+      class="w-full aspect-square rounded-lg text-xs font-bold font-mono transition-all flex items-center justify-center
+             ${hasTerms.has(l)
+               ? 'bg-forestBg text-forest hover:bg-forest hover:text-white border border-forest/20'
+               : 'bg-mist text-rule border border-rule cursor-default'}"
+      ${!hasTerms.has(l) ? 'disabled' : ''}
+    >${l}</button>
+  `).join('');
+}
+
+/* ── NEWSLETTER ── */
+function handleNewsletterSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type=submit]');
+  const success = document.getElementById('newsletter-success');
+  btn.textContent = 'Subscribing…';
+  btn.disabled = true;
+  setTimeout(() => {
+    e.target.style.display = 'none';
+    success.classList.remove('hidden');
+  }, 1000);
+}
+
+/* ── BACK TO TOP ── */
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('back-to-top');
+  if (window.scrollY > 400) {
+    btn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+    btn.classList.add('opacity-100', 'translate-y-0');
+  } else {
+    btn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    btn.classList.remove('opacity-100', 'translate-y-0');
+  }
+});
+
+/* ── SCROLL ANIMATIONS (IntersectionObserver) ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-fade-up');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.card-lift, .tool-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.card-lift, .tool-card').forEach(el => revealObserver.observe(el));
+
+/* ── LANGUAGE ── */
+function setLang(lang, btn) {
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.remove('active', 'bg-forest', 'text-white', 'border-forest');
+    b.classList.add('bg-white/10', 'text-white/60', 'border-white/20');
+  });
+  btn.classList.add('active', 'bg-forest', 'text-white', 'border-forest');
+  btn.classList.remove('bg-white/10', 'text-white/60', 'border-white/20');
+  console.log('Language set to:', lang);
+}
+
+/* ── INIT ── */
+buildAZGrid();
+
+// Animate progress bars when they come into view
+const progressObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fill = entry.target.querySelector('.progress-fill');
+      if (fill) fill.style.width = fill.getAttribute('data-width') || '0%';
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.progress-bar').forEach(bar => progressObserver.observe(bar));
+
+// Stagger course hero appear
+setTimeout(() => {
+  document.querySelectorAll('#courses .card-lift').forEach((el, i) => {
+    el.style.animationDelay = `${i * 100}ms`;
+  });
+}, 100);
+
+console.log('%c🧠 Garments Brain', 'color:#0D6E57;font-size:18px;font-weight:bold;font-family:Georgia,serif');
+console.log('%cKnowledge hub for the garment industry', 'color:#56707F;font-size:12px');
+</script>
+
+</body>
+</html>
