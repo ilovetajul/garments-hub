@@ -35,7 +35,7 @@ export function FeaturedArticles() {
             <h2 className="font-serif font-black text-3xl sm:text-4xl text-ink">What Professionals Are Reading</h2>
           </div>
           <div className="flex flex-wrap gap-2">
-            {FILTERS.map((f) => (
+            {FILTERS.map((f: string) => (
               <button key={f} onClick={() => setActive(f)}
                 className={`font-semibold text-xs px-3.5 py-1.5 rounded-full border transition-all capitalize ${
                   active === f ? "bg-forest text-white border-forest" : "border-rule text-slateL hover:border-forest hover:text-forest"
@@ -155,7 +155,7 @@ export function ToolsSection() {
               <div className="bg-bg rounded-xl p-4 border border-rule mb-5">
                 <label className="font-mono text-[10px] text-slateL uppercase tracking-wide block mb-2">Garment Type</label>
                 <div className="grid grid-cols-2 gap-2 mb-3">
-                  {Object.keys(estimates).map((g) => (
+                  {Object.keys(estimates).map((g: string) => (
                     <button key={g} onClick={() => setGarment(g)}
                       className={`text-xs font-semibold py-1.5 rounded-lg border capitalize transition-colors ${
                         garment === g ? "border-amber bg-amberBg text-amber" : "border-rule text-slateL hover:border-amber"
@@ -312,7 +312,7 @@ export function GlossaryTeaser() {
             <h2 className="font-serif font-black text-3xl sm:text-4xl text-ink mb-4 leading-tight">500+ Terms in English and বাংলা</h2>
             <p className="text-slateL text-base leading-relaxed mb-6">Every garment term with full definitions, pronunciation guides, tolerances, and diagrams.</p>
             <div className="space-y-3 mb-8">
-              {SAMPLE_TERMS.map((t) => (
+              {SAMPLE_TERMS.map((t: string) => (
                 <Link key={t.slug} href={`/glossary/${t.slug}`}
                   className="flex items-center justify-between bg-white border border-rule rounded-xl px-4 py-3 hover:border-forest/30 hover:shadow-card transition-all group">
                   <div>
@@ -337,7 +337,7 @@ export function GlossaryTeaser() {
             <div className="bg-white border border-rule rounded-2xl p-6 shadow-card">
               <div className="font-mono text-[10px] text-slateL uppercase tracking-widest mb-4">Browse A–Z</div>
               <div className="grid grid-cols-9 gap-1.5 mb-5">
-                {ALPHABET.map((l) => (
+                {ALPHABET.map((l: string) => (
                   <Link key={l} href={`/glossary?letter=${l}`}
                     className={`aspect-square rounded-lg text-xs font-bold font-mono flex items-center justify-center transition-all ${
                       HAS_TERMS.has(l)

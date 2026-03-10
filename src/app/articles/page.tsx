@@ -38,7 +38,7 @@ export default async function ArticlesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((a) => (
+          {articles.map((a: {id: string, slug: string, title: string, excerpt: string, category: string, tags: string[], readTime: string, publishedAt: string, status: string}) => (
             <article key={a.id} className="bg-white border border-rule rounded-2xl overflow-hidden card-lift group">
               <div className={`h-1.5 w-full ${a.category === "POM" ? "bg-forest" : a.category === "QC" ? "bg-blue-700" : a.category === "FABRIC" ? "bg-amber" : "bg-purple-600"}`} />
               <div className="p-5">

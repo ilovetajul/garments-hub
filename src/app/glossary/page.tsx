@@ -44,7 +44,7 @@ export default async function GlossaryPage({
             className={`px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition-all ${!letter ? "bg-forest text-white" : "bg-white border border-rule text-slateL hover:border-forest hover:text-forest"}`}>
             All
           </Link>
-          {ALPHABET.map((l) => (
+          {ALPHABET.map((l: string) => (
             <Link key={l} href={`/glossary?letter=${l}`}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition-all ${letter === l ? "bg-forest text-white" : "bg-white border border-rule text-slateL hover:border-forest hover:text-forest"}`}>
               {l}

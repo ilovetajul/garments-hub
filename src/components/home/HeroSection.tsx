@@ -89,7 +89,7 @@ export function HeroSection() {
               {/* Dropdown */}
               {showDrop && (
                 <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl shadow-hover overflow-hidden z-50">
-                  {filtered.slice(0, 5).map((s) => (
+                  {filtered.slice(0, 5).map((s: string) => (
                     <a key={s.href} href={s.href}
                       className="flex items-center gap-3 px-4 py-3 hover:bg-mist transition-colors border-b border-rule last:border-0">
                       <div className="flex-1">
@@ -106,7 +106,7 @@ export function HeroSection() {
             {/* Popular tags */}
             <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
               <span className="text-white/40 text-xs">Popular:</span>
-              {["Chest Width", "AQL 2.5", "GSM", "Defects", "Embroidery QC"].map((t) => (
+              {["Chest Width", "AQL 2.5", "GSM", "Defects", "Embroidery QC"].map((t: string) => (
                 <button key={t} onClick={() => setQuery(t)}
                   className="text-xs text-white/60 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full transition-all">
                   {t}

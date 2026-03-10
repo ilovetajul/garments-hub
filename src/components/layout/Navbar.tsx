@@ -40,7 +40,7 @@ export function Navbar() {
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-6">
-              {navLinks.map((l) => (
+              {navLinks.map((l: {label: string, href: string}) => (
                 <Link
                   key={l.href}
                   href={l.href}
@@ -76,7 +76,7 @@ export function Navbar() {
         {/* Mobile menu */}
         <div className={`md:hidden border-t border-white/10 overflow-hidden transition-all duration-300 ${open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
           <div className="px-4 py-4 space-y-1">
-            {navLinks.map((l) => (
+            {navLinks.map((l: {label: string, href: string}) => (
               <Link
                 key={l.href}
                 href={l.href}
