@@ -44,7 +44,7 @@ export default async function ArticlesPage() {
               <div className="p-5">
                 <div className="flex items-center gap-2 flex-wrap mb-3">
                   <span className={`text-[10px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-full ${BADGE[a.category] ?? "bg-gray-100 text-gray-700"}`}>{a.category}</span>
-                  <span className="ml-auto text-xs text-slateL flex items-center gap-1"><Clock size={11} />{a.readTimeMin} min</span>
+                  <span className="ml-auto text-xs text-slateL flex items-center gap-1"><Clock size={11} />{a.readTime} min</span>
                 </div>
                 <h2 className="font-serif font-bold text-base text-ink mb-2 group-hover:text-forest transition-colors leading-snug">
                   <Link href={`/articles/${a.slug}`}>{a.title}</Link>
